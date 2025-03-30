@@ -1,1 +1,1 @@
-Pages Url: [https://csc375-web-dev.github.io/example-rest-web-api-specification/](https://csc375-web-dev.github.io/example-rest-web-api-specification/)
+Pages Url: [https://csc375-web-dev.github.io/animals-rest-web-api-spec/](https://csc375-web-dev.github.io/animals-rest-web-api-spec/)
