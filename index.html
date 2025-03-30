@@ -1,0 +1,371 @@
+<html>
+    <head>
+        <title>Animal REST API Specification</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/themes/prism.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-json.min.js"></script>
+    </head>
+    <body>
+        <h1>Animal REST API Specification</h1>
+        <p><span class="bold">Domain (local development): </span>http://localhost:3000</p>
+        <div class="separator"></div>
+
+        <h2>Get All Animal Records</h2>
+        <p><span class="bold">Resource: </span>/animals</p>
+        <p><span class="bold">Method: </span>GET</p>
+        <p>Returns all animal records</p>
+        <h3>Example response body:</h3>
+        <p>Each animal record in the resulting array has the following fields:</p>
+        <ul>
+            <li><span class="bold">id:</span> the identifier of the animal; every animal has a unique id</li>
+            <li><span class="bold">name:</span> the name of the animal</li>
+            <li><span class="bold">description:</span> text describing animal; array where each element represents a new paragraph; supports hyperlinks</li>
+            <li><span class="bold">images:</span> array of images (urls)</li>
+            <li><span class="bold">video:</span> a video url</li>
+            <li><span class="bold">events:</span> an array of event objects; each event contains the following fields:
+                <ul>
+                    <li><span class="bold">name:</span> name of event</li>
+                    <li><span class="bold">date:</span> date of event; MM/DD/YYYY format</li>
+                    <li><span class="bold">url:</span> url leading to associated website for event</li>
+                </ul>
+            </li>
+        </ul>
+        <pre>
+            <code class="language-json">
+[
+    {
+        "id": 1,
+        "name": "Pygmy Hippopotamus",
+        "sciName": "Choeropsis liberiensis",
+        "description": [
+            "Tiny little cute hippo!!!",
+            "Click &lt;a href=\"https://animals.sandiegozoo.org/animals/pygmy-hippopotamus\"&gt;here&lt;/a&gt; to learn more about the Pygmy Hippo!."
+        ],
+        "images": [
+            "https://wildark.org/wp-content/uploads/2019/05/AdobeStock_101479341_p.jpg",
+            "https://www.fauna-flora.org/wp-content/uploads/2023/05/naturepl_01529314-e1693304637712.jpg",
+            "https://www.kget.com/wp-content/uploads/sites/2/2020/05/PHippo_003_Web.jpg?w=1280",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyKDU-AYxS6R5l65EoCDBUaOLUAlUm-m7m2Q&s"
+        ],
+        "video": "https://www.youtube.com/embed/a-vbFA-s1vs",
+        "events": [
+            {
+                "name": "Meet and greet",
+                "date": "03/02/2025",
+                "url": "https://www.nationalgeographic.com/expeditions/trip-search/wildlife-trips/"
+            },
+            {
+                "name": "Museum Exhibit",
+                "date": "01/12/2024",
+                "url": "https://peabody.yale.edu/"
+            },
+            {
+                "name": "Lecture",
+                "date": "01/02/2026",
+                "url": "https://www.qu.edu/"
+            }
+        ]
+    }
+]</code>
+        </pre>
+        <h3>Status Codes:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Response Body</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>200</td>
+                <td>OK</td>
+                <td>Animal Records Array</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error -- Something unexpected went wrong with the request</td>
+                <td>Error message in this format: <span class="bold">Error: [exception error message here]</span></td>
+            </tr>
+        </table>
+        <div class="separator"></div>
+
+        <h2>Get one animal record</h2>
+        <p><span class="bold">Resource: </span>/animals/:id</p>
+        <p><span class="bold">Method: </span>GET</p>
+        <p>Returns an animal record with a matching id</p>
+        <h3>Route Params</h3>
+        <ul>
+            <li><span class="bold">id: </span>Id of desired animal record to retrieve, must be a valid whole number</li>
+        </ul>
+        <p>For example: <span class="bold">/animals/1</span> or <span class="bold">/animals/2</span></p>
+        <h3>Example response body:</h3>
+        <p>An animal record has the following fields:</p>
+        <ul>
+            <li><span class="bold">id:</span> the identifier of the animal; every animal has a unique id</li>
+            <li><span class="bold">name:</span> the name of the animal</li>
+            <li><span class="bold">description:</span> text describing animal; array where each element represents a new paragraph; supports hyperlinks</li>
+            <li><span class="bold">images:</span> array of images (urls)</li>
+            <li><span class="bold">video:</span> a video url</li>
+            <li><span class="bold">events:</span> an array of event objects; each event contains the following fields:
+                <ul>
+                    <li><span class="bold">name:</span> name of event</li>
+                    <li><span class="bold">date:</span> date of event; MM/DD/YYYY format</li>
+                    <li><span class="bold">url:</span> url leading to associated website for event</li>
+                </ul>
+            </li>
+        </ul>
+        <pre>
+            <code class="language-json">
+{
+    "id": 1,
+    "name": "Pygmy Hippopotamus",
+    "sciName": "Choeropsis liberiensis",
+    "description": [
+        "Tiny little cute hippo!!!",
+        "Click &lt;a href=\"https://animals.sandiegozoo.org/animals/pygmy-hippopotamus\"&gt;here&lt;/a&gt; to learn more about the Pygmy Hippo!."
+    ],
+    "images": [
+        "https://wildark.org/wp-content/uploads/2019/05/AdobeStock_101479341_p.jpg",
+        "https://www.fauna-flora.org/wp-content/uploads/2023/05/naturepl_01529314-e1693304637712.jpg",
+        "https://www.kget.com/wp-content/uploads/sites/2/2020/05/PHippo_003_Web.jpg?w=1280",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyKDU-AYxS6R5l65EoCDBUaOLUAlUm-m7m2Q&s"
+    ],
+    "video": "https://www.youtube.com/embed/a-vbFA-s1vs",
+    "events": [
+        {
+            "name": "Meet and greet",
+            "date": "03/02/2025",
+            "url": "https://www.nationalgeographic.com/expeditions/trip-search/wildlife-trips/"
+        },
+        {
+            "name": "Museum Exhibit",
+            "date": "01/12/2024",
+            "url": "https://peabody.yale.edu/"
+        },
+        {
+            "name": "Lecture",
+            "date": "01/02/2026",
+            "url": "https://www.qu.edu/"
+        }
+    ]
+}</code>
+        </pre>
+        <h3>Status Codes:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Response Body</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>200</td>
+                <td>OK</td>
+                <td>Animal Record Object</td>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>Bad Request -- The given id value is not a valid whole number</td>
+                <td>Error message in this format: <span class="bold">Error: id must be a valid whole number</span></td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>Not Found -- animal record with given id was not found</td>
+                <td>Error message in this format: <span class="bold">Error: animal not found</span></td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error -- Something unexpected went wrong with the request</td>
+                <td>Error message in this format: <span class="bold">Error: [exception error message here]</span></td>
+            </tr>
+        </table>
+        <div class="separator"></div>
+
+        <h2>Login as admin user</h2>
+        <p><span class="bold">Resource: </span>/login</p>
+        <p><span class="bold">Method: </span>POST</p>
+        <p>Creates an auth token representing logged in user, which can be used for calling other admin-only endpoints</p>
+        <h3>Request Body</h3>
+        <p>To successfully login, body must include the following fields</p>
+        <ul>
+            <li><span class="bold">username:</span> the admin user's username</li>
+            <li><span class="bold">password:</span> the admin user's password</li>
+        </ul>
+        <h3>Example response body:</h3>
+        <p>A signed auth token (JWT) should be returned:</p>
+        <pre>
+            <code class="language-json">
+{
+    "token": "&lt;some token here&gt;"
+}</code>
+        </pre>
+        <h3>Status Codes:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Response Body</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>201</td>
+                <td>Created</td>
+                <td>Auth token</td>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>Bad Request -- The supplied request body was malformed/invalid</td>
+                <td>Error message in this format: <span class="bold">Error: Malformed/Invalid Request Body -- [specific error here]</span>; should not provide an error message for EVERY issue with the request body, only the first one that is found.</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Unauthorized -- login credentials did not match a user record</td>
+                <td>Error message in this format: <span class="bold">Error: Unauthorized</span></td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error -- Something unexpected went wrong with the request</td>
+                <td>Error message in this format: <span class="bold">Error: [exception error message here]</span></td>
+            </tr>
+        </table>
+        <div class="separator"></div>
+
+        <h2>Create a new animal record</h2>
+        <p><span class="bold">Resource: </span>/animals</p>
+        <p><span class="bold">Method: </span>POST</p>
+        <p>Creates a new animal record in the data store</p>
+        <p>This endpoint is only available for admin users.</p>
+        <h3>Required Headers</h3>
+        <ul>
+            <li><span class="bold">authToken: </span>Auth token of logged in admin user</li>
+        </ul>
+        <h3>Request Body</h3>
+        <p>To create an animal, body must include the following fields</p>
+        <ul>
+            <li><span class="bold">name:</span> the name of the animal</li>
+            <li><span class="bold">description:</span> text describing animal; array where each element represents a new paragraph; supports hyperlinks</li>
+            <li><span class="bold">images:</span> array of images (urls)</li>
+            <li><span class="bold">video:</span> a video url</li>
+            <li><span class="bold">events:</span> an array of event objects; each event contains the following fields:
+                <ul>
+                    <li><span class="bold">name:</span> name of event</li>
+                    <li><span class="bold">date:</span> date of event; MM/DD/YYYY format</li>
+                    <li><span class="bold">url:</span> url leading to associated website for event</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Example response body:</h3>
+        <p>A success message along with the newly created fruit record's id value will be returned:</p>
+        <pre>
+            <code class="language-json">
+{
+    "message": "successfully created new animal record",
+    "id": 2,
+}</code>
+        </pre>
+        <h3>Status Codes:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Response Body</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>201</td>
+                <td>Created</td>
+                <td>Success message and id value of newly created animal</td>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>Bad Request -- The supplied request body was malformed/invalid</td>
+                <td>Error message in this format: <span class="bold">Error: Malformed/Invalid Request Body -- [specific error here]</span>; should not provide an error message for EVERY issue with the request body, only the first one that is found.</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Unauthorized -- The caller is not authorized to call this endpoint (missing/invalid auth token)</td>
+                <td>Error message in this format: <span class="bold">Error: Unauthorized</span></td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>Not Found -- animal record with given id was not found</td>
+                <td>Error message in this format: <span class="bold">Error: animal not found</span></td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error -- Something unexpected went wrong with the request</td>
+                <td>Error message in this format: <span class="bold">Error: [exception error message here]</span></td>
+            </tr>
+        </table>
+        <div class="separator"></div>
+
+        <h2>Get Admin User Profile</h2>
+        <p><span class="bold">Resource: </span>/user</p>
+        <p><span class="bold">Method: </span>GET</p>
+        <p>Returns information about admin user (based on provided auth token)</p>
+        <p>This endpoint is only available for admin users.</p>
+        <h3>Required Headers</h3>
+        <ul>
+            <li><span class="bold">authToken: </span>Auth token of logged in admin user</li>
+        </ul>
+        <h3>Example response body:</h3>
+        <ul>
+            <li><span class="bold">id:</span> the id of the user; every user has a unique id</li>
+            <li><span class="bold">name:</span> the name of the user; typically their first and last name</li>
+            <li><span class="bold">animals:</span> an array of each animal record that was created by the user; each animal record should contain the following fields:
+                <ul>
+                    <li><span class="bold">id:</span> the identifier of the animal; every animal has a unique id</li>
+                    <li><span class="bold">name:</span> the name of the animal</li>
+                </ul>
+            </li>
+        </ul>
+        <pre>
+            <code class="language-json">
+{
+    "id": 1,
+    "name": "John Smith",
+    "animals": [
+        {
+            "id": 1,
+            "name": "Pygmy Hippopotanus"
+        },
+        {
+            "id": 2",
+            "name": "Quokka"
+        }
+    ]
+}</code>
+        </pre>
+        <h3>Status Codes:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Response Body</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>200</td>
+                <td>OK</td>
+                <td>User Profile Response Object</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Unauthorized -- The caller is not authorized to call this endpoint (missing/invalid auth token)</td>
+                <td>Error message in this format: <span class="bold">Error: Unauthorized</span></td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error -- Something unexpected went wrong with the request</td>
+                <td>Error message in this format: <span class="bold">Error: [exception error message here]</span></td>
+            </tr>
+        </table>
+    </body>
+</html>
